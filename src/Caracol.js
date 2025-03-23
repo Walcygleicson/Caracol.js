@@ -21,7 +21,10 @@ const Caracol = {}
  * ---
  * @param {LogInitOptions} logInit Um objeto de inicialização da função personalisada.
  */
-Caracol.newLog = function(logInit){}
+Caracol.newPrinter = function (logInit) {
+    
+    return function(...data){}
+}
 
 
 export default Caracol
