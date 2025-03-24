@@ -1,5 +1,5 @@
 import get from "./modules/get.js"
-import createANSIEscape from "./modules/createANSIEscape.js"
+import ANSI from "./modules/ANSI.js"
 /**
  * @typedef {object} LineLogOptions Objeto define configurações sobre linha de registro.
  * @prop {boolean} [getLineNumber] Se *`true`* obtém o número da linha onde a função foi invocada. O padrão é *`true`*.
@@ -19,32 +19,6 @@ import createANSIEscape from "./modules/createANSIEscape.js"
  * 
  */
 
-/** Códigos de cores de texto */
-const colorCode = {
-    gray: 90,
-    red: 91,
-    green: 92,
-    yellow: 93,
-    blue: 94,
-    magenta: 95,
-    cian: 96,
-    white: 97,
-}
-
-/** Códigos de estilos de fonte */
-const styleCode = {
-    bold: 1,
-    italic: 3,
-    underline: 4,
-    blink: 5,
-    inverse: 7,
-    hidden: 8,
-    strike: 9,
-    "double-underline": 21
-}
-
-
-
 const Caracol = {}
 
 /**
@@ -53,15 +27,21 @@ const Caracol = {}
  * @param {string} message Um dado ou *`string`* a ser formatado. 
  * @param {ColorName} [colorName] O nome da cor de texto.
  * @param {boolean} [reset] Um *`boolean`* define o reset da formatação ao final da *`string`*. O padrão é *`true`*.
+ * 
+ * @example
+ * // Formatar string com reset ao final (padrão)
+ * Caracol.color("HELLO", "green") => "\x1b[92mHELLO\x1b[0m"
+ * 
+ * // Formatar string sem reset ao final
+ * Caracol.color("HELLO", "green", false) => "\x1b[92mHELLO"
  * @returns {string}
  */
 Caracol.color = function (message, colorName = "white", reset = true) {
     if (typeof colorName === "string") {
         // Definir reset
-        reset ? reset = createANSIEscape(0) : null
-        
+        reset ? reset = ANSI(0) : null
         // Definir cor
-        const color = createANSIEscape(get.colorCode(colorName), () => {
+        const color = ANSI(get.colorCode(colorName), () => {
             // Lançar erro caso o nome de cor for inválido
             throw new Error(`Invalid color name ["${colorName}"]!`)
         })

@@ -4,13 +4,13 @@
  * @param {function} failCallback Uma função a ser executada caso houver alguma falha na criação
  * 
 */
-const createANSIEscape = (code, failCallback) => {
+const ANSI = (code, failCallback) => {
     if (typeof code === "number") { return `\x1b[${code}m` }
     // Executar a função caso houver falha
-    if (typeof failCallback === "function") { failFunction(code) }
+    if (typeof failCallback === "function") { failCallback(code) }
     throw new Error('failCallback must be a function!')
     
     
 }
 
-export default createANSIEscape
+export default ANSI
