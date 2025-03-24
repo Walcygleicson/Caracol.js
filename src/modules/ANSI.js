@@ -13,4 +13,7 @@ const ANSI = (code, failCallback) => {
     
 }
 
+// cor de texto extendida \x1b[38;5;<n>m
+// cor de fundo extendida \x1b[48;5;<n>m
+
 export default ANSI

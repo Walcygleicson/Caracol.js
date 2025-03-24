@@ -13,8 +13,9 @@ import ANSI from "./modules/ANSI.js"
  * @prop {boolean} [reset] Reseta a formatação para o padrão do terminal ao final da *`string`*
  * 
  * @typedef {StyleOptions | LineLogOptions} LogInitOptions
+ * @typedef {string} ColorHex Uma *`string`* que represente uma cor em hexadecimal.
  * 
- * @typedef {"red"|"green"|"yellow"|"blue"|"magenta"|"cian"|"white"| "gray"} ColorName
+ * @typedef {"red"|"green"|"yellow"|"blue"|"magenta"|"cian"|"white"| "gray"|"black"} ColorName
  * @typedef {"bold"|"italic"|"underline"|"blink"|"inverse"|"hidden"|"strike"|"double-undefined"} StyleName
  * 
  */
@@ -25,7 +26,7 @@ const Caracol = {}
  * * Retorna uma string com formatação *`ANSI`* de cor de texto.
  * ---
  * @param {string} message Um dado ou *`string`* a ser formatado. 
- * @param {ColorName} [colorName] O nome da cor de texto.
+ * @param {ColorName & ColorHex | number} [color] O nome da cor de texto.
  * @param {boolean} [reset] Um *`boolean`* define o reset da formatação ao final da *`string`*. O padrão é *`true`*.
  * 
  * @example
@@ -36,20 +37,17 @@ const Caracol = {}
  * Caracol.color("HELLO", "green", false) => "\x1b[92mHELLO"
  * @returns {string}
  */
-Caracol.color = function (message, colorName = "white", reset = true) {
-    if (typeof colorName === "string") {
-        // Definir reset
-        reset ? reset = ANSI(0) : null
-        // Definir cor
-        const color = ANSI(get.colorCode(colorName), () => {
-            // Lançar erro caso o nome de cor for inválido
-            throw new Error(`Invalid color name ["${colorName}"]!`)
-        })
-        
-        // Formatar mensagem
-        message = color + message
-        return reset? message + reset : message
-    }
+Caracol.color = function (message, color= "white", reset = true) {
+    // Definir cor
+    const color = ANSI(get.colorCode(colorName), () => {
+        // Lançar erro caso o nome de cor for inválido
+        throw new Error(`Invalid color name ["${colorName}"]!`)
+    })
+    // Definir reset
+    reset ? reset = ANSI(0) : null
+    // Formatar mensagem
+    message = color + message
+    return reset? message + reset : message
 }
 
 /**

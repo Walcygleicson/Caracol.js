@@ -3,9 +3,11 @@ const code = {
     /** Códigos para formatação de estilo */
     style: {
         bold: 1,
+        faint: 2,
         italic: 3,
         underline: 4,
         blink: 5,
+        "fast-blink": 6,
         inverse: 7,
         hidden: 8,
         strike: 9,
@@ -14,14 +16,16 @@ const code = {
     
     /** Códigos para formatação de cores */
     color: {
-        gray: 90,
-        red: 91,
-        green: 92,
-        yellow: 93,
-        blue: 94,
-        magenta: 95,
-        cian: 96,
-        white: 97,
-    }
+        black: 30,
+        red: 31,
+        green: 32,
+        yellow: 33,
+        blue: 34,
+        magenta: 35,
+        cian: 36,
+        white: 37,
+    },
+
+    extendedColor: {}
 }
 export default code
